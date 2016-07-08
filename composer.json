@@ -9,6 +9,7 @@
     ],
     "require": {},
     "minimum-stability": "dev",
+    "version": "1.0-dev",
     "autoload": {
         "psr-4": { "PhpToolbox\\": "" }
     }
