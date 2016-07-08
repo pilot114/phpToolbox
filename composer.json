@@ -1,0 +1,14 @@
+{
+    "name": "pilot114/php-toolbox",
+    "type": "library",
+    "authors": [
+        {
+            "name": "pilot114",
+            "email": "pilot114@bk.ru"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": { "PhpToolbox\\": "" }
+    }
+}
