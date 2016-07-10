@@ -7,9 +7,7 @@
             "email": "pilot114@bk.ru"
         }
     ],
-    "require": {
-        "php": "^5.3.0"
-    },
+    "require": {},
     "minimum-stability": "dev",
     "version": "1.0.0",
     "autoload": {
