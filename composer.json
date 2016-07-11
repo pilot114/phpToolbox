@@ -7,7 +7,6 @@
             "email": "pilot114@bk.ru"
         }
     ],
-    "require": {},
     "minimum-stability": "dev",
     "version": "1.0.0",
     "autoload": {

@@ -3,6 +3,7 @@
 namespace PhpToolbox;
 
 use PhpToolbox\Utils\InputChecker;
+use PhpToolbox\Utils\Formatter as F;
 
 class Unit
 {
@@ -34,6 +35,24 @@ class Unit
       } else {
           return $checker->getData();
       }
+  }
+
+  public function printResourseUsage()
+  {
+        $total_mem = explode("\n", (string)trim( shell_exec('free') ) );
+        $mem = explode(" ", $total_mem[1]);
+        $mem = array_filter($mem);
+        $mem = array_merge($mem);
+        $memory_percent = $mem[2]/$mem[1]*100;
+
+        $resources = [
+            'total_memory' => $mem[2],
+            'total_use_memory_%' => $memory_percent,
+            'php_memory_limit' => ini_get('memory_limit'),
+            'php_script_alloc' => memory_get_usage(true),
+            'php_script_use' => memory_get_usage(),
+        ];
+        F::printer('Used resources:', $resources);
   }
 
   public function save($data, $mode = null)
