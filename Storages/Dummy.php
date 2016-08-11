@@ -2,7 +2,7 @@
 
 namespace PhpToolbox\Storages;
 
-class Test extends Storage
+class Dummy extends Storage
 {
     protected function setBucket($number) {
       return false;

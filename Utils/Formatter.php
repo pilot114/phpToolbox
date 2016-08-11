@@ -2,6 +2,8 @@
 
 namespace PhpToolbox\Utils;
 
+// all methods return string
+
 class Formatter
 {
     static function printer($message, $data, $escape = false)
@@ -13,10 +15,10 @@ class Formatter
                 $data = htmlentities($data);
             }
         }
-
-        echo '<b>' . $message . '</b><pre>';
-        print_r($data);
-        echo '</pre>';
+        $output = '<b>' . $message . '</b><pre>';
+        $output .= print_r($data, true);
+        $output .= '</pre>';
+        return $output;
     }
 
     static function escapeRecursive($data)
@@ -36,10 +38,11 @@ class Formatter
 
     static function set($setName, $elems)
     {
-        echo "<h2>$setName</h2>";
+        $output = "<h2>$setName</h2>";
         foreach($elems as $elem) {
-            echo '<span class="label label-success">' . $elem . '</span> ';
+            $output .= '<span class="label label-success">' . $elem . '</span> ';
         }
+        return $output;
     }
 
     /*
@@ -47,7 +50,7 @@ class Formatter
      */
     static function alert($type, $message)
     {
-        echo "<div class='alert alert-$type'>$message</div>";
+        return "<div class='alert alert-$type'>$message</div>";
     }
 
 
@@ -93,15 +96,18 @@ class Formatter
 
     static function toList($data, $format = FALSE)
     {
+        $output = '';
         foreach($data as $key => $elem) {
-            if (is_array($elem))
-                self::toList($elem, $format);
-            else {
-                if ($format)
+            if (is_array($elem)) {
+                $output .= self::toList($elem, $format);
+            } else {
+                if ($format) {
                     $elem = self::format($elem, $format);
-                echo "$key : <code>$elem</code><br>";
+                }
+                $output .= "$key : <code>$elem</code><br>";
             }
         }
+        return $output;
     }
 
     static function format($elem, $format)
@@ -110,19 +116,20 @@ class Formatter
             case 'base64':
                 return base64_encode($elem);
             default:
-                echo 'unknown format type';
+                return 'unknown format type';
         }
     }
 
     static function toYaml($array, $space = '')
     {
+        $output = '';
         foreach($array as $key => $val) {
             if (is_array($val)) {
-                echo "$space$key:\n";
-                self::toYaml($val, $space . '  ');
+                $output .= "$space$key:\n";
+                $output .= self::toYaml($val, $space . '  ');
             } else
-                echo "$space$key:$val\n";
+                $output .= "$space$key:$val\n";
         }
+        return $output;
     }
-
 }
