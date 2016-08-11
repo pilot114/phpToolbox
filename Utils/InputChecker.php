@@ -24,9 +24,10 @@ class InputChecker
 
     function __construct($data, $hookup)
     {
-        foreach($this->recursiveKeys($data) as $name => $value) {
+        foreach($this->recursiveKeys($data) as $i => $name) {
+            // any non letters, numbers and ":" symbols
             if (preg_match('#[^a-zA-Z0-9:]+#', $name)) {
-                throw new \Exception('Некорректное имя параметра');
+                throw new \Exception('Некорректное имя параметра: ' . $name);
             } else {
                 $hData = $data;
             }
@@ -51,19 +52,20 @@ class InputChecker
                 }
             }
         }
-
         // check input data
         foreach($hookup['input'] as $paramName => $param) {
 
             if (!isset($hData[$paramName])) {
                 if (isset($param['norm'])) {
                     $hData[$paramName] = $param['norm'];
+                } elseif(is_null($param)) {
+                    $hData[$paramName] = '';
                 } else {
-                    throw new MissError("Нет значения по умолчанию для '$key'");
+                    throw new MissError("Нет значения по умолчанию для '$paramName'");
                 }
             }
 
-            // okay, structure
+            // okay, maybe structure ?
             if (isset($param['map'])) {
 
                 // array of struct
@@ -157,6 +159,9 @@ class InputChecker
 
     private function checkNode($value, $hP, $key)
     {
+        if (is_null($hP)) {
+            return $value;
+        }
         if (preg_match($hP['elem'], $value)) {
             return $value;
         } else {
