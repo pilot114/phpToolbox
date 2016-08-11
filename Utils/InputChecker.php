@@ -107,6 +107,10 @@ class InputChecker
             }
             return $result;
         }
+        // check null param
+        if(is_null($hP)){
+            return $dP;
+        }
 
         if (isset($hP['dimension'])) {
             $this->testDim($dP, $hP['dimension'], $key);
