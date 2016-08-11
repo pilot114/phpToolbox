@@ -59,7 +59,9 @@ class InputChecker
                 if (isset($param['norm'])) {
                     $hData[$paramName] = $param['norm'];
                 } elseif(is_null($param)) {
-                    $hData[$paramName] = '';
+                    $hData[$paramName] = null;
+                } elseif(is_bool($param)) {
+                    $hData[$paramName] = $param;
                 } else {
                     throw new MissError("Нет значения по умолчанию для '$paramName'");
                 }
