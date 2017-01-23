@@ -58,6 +58,27 @@ class Unit
     return $result;
   }
 
+  // old version
+  // protected final function save($data, $mode = 'env') {
+  //
+  //     $box = new Storage($mode, get_class($this), $this->user);
+  //
+  //     foreach ($data as $key => $value) {
+  //         $box->save(serialize($value), $key);
+  //     }
+  //     return True;
+  // }
+  //
+  // protected final function load($keys, $mode = 'env') {
+  //
+  //     $box = new Storage($mode, get_class($this), $this->user);
+  //
+  //     foreach ($keys as $key) {
+  //         $data[$key] = unserialize($box->load($key));
+  //     }
+  //     return $data;
+  // }
+
   //----------------------------client methods-------------------------------//
 
   protected function uiOutput($data)

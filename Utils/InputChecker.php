@@ -4,7 +4,7 @@
  * Auto check data sending from user to unit.
  *
  * check "flow":
- *  1. convert data to hookup-like (hData). validate HTML names
+ *  1. convert data to hookup-like (hData). validate arg names
  *  2. cut data non used in mode
  *  3. checking each param
  *
@@ -93,7 +93,7 @@ class InputChecker
     {
         array_walk_recursive($struct, function (&$v, $k, $map) {
             $structNodeHookup = $this->findRecursive($map, $k);
-            $result           = Null;
+            $result           = null;
             $v                = $this->paramCheck($v, $structNodeHookup, $k);
         }, $param['map']);
         return $struct;
@@ -102,6 +102,10 @@ class InputChecker
     // check non-structure. dP = data, hP = meta info from hookup
     private function paramCheck($dP, $hP, $key)
     {
+        // check null param
+        if(is_null($hP)){
+            return $dP;
+        }
         // check bool param
         if(is_bool($hP)){
             if(is_null($dP)){
@@ -110,10 +114,6 @@ class InputChecker
                 $result = (bool)$dP;
             }
             return $result;
-        }
-        // check null param
-        if(is_null($hP)){
-            return $dP;
         }
 
         if (isset($hP['dimension'])) {
